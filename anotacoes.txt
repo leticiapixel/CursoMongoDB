@@ -1,0 +1,79 @@
+Anotações Curso MongoDB 
+
+brew services start mongodb/brew/mongodb-community -> comando para iniciar serviço via terminal (inicia em segundo plano)
+
+mongosh -> conecta com o banco
+
+Use pessoasData -> cria o banco ‘pessoasData’ (banco so e criado depois que e inserido dados nele)
+
+Show dbs -> mostra os datasses
+
+db.pessoas.insertOne({nome: 'Matheus', idade: 30, profissao: 'Programador', esta_empregado: true }) -> comando para inserir dados na Collection pessoas
+
+Show Collections -> mostra as Collections do banco
+
+Db.pessoas.find() -> comando para pesquisar todos os registros da Collection, dentro do parênteses pode ser inserido filtros
+
+ db.pessoas.find().pretty() -> opção para mostrar os dados de forma mais organizada
+
+db.pessoas.find({ esta_empregado: true}) -> exemplo para inserir filtro na pesquisa
+
+db.pessoas.find({ esta_empregado: true}).count() -> exibe a quantidade de registro do retorno do filtro
+
+db.pessoas.findOne() -> retorna apenas 1 resultado, mesmo que tenha mais quantidade
+
+db.pessoas.findOne({nome: 'Joao' }) -> exemplo de filtro
+
+
+db.pessoas.updateOne({nome: 'Joao'}, { $set: { esta_empregado: true }}) -> exemplo para realizar uma atualização
+
+db.pessoas.updateMany({}, {$set: { salario: 5000}}) -> exemplo de comando para atualizar vários (caso o campo não exista na Collection, ele e criado automaticamente)
+
+db.pessoas.updateOne({nome: 'Matheus'}, {$set:{ procurando_emprego: false }}) -> atualizando um registro especifico
+
+db.pessoas.deleteOne({ name: 'Josias' }) -> comando para deletar um registro
+
+db.pessoas.deleteMany({ name: 'Josias' }) -> comando para deletar vários 
+Registros
+
+// Operadores
+Operadores começam com $
+
+db.pessoas.find({ idade: { $gt: 30 }}) -> busca registros com idade acima de 30 anos
+
+db.pessoas.find({ idade: { $gte: 30 }}) -> maior ou igual
+
+db.pessoas.find({ idade: { $lt: 25 }}) -> menor que
+
+db.pessoas.updateMany({idade: {$gt: 35}},{$set: {prioridade: true} }) -> atualizar vários registros
+
+db.pessoas.insertOne({
+...     nome: 'Paula',
+...     idade: 44,
+...     hobbies: ['Correr', 'Ler', 'Trilhar'],
+...     esta_trabalhando: true,
+...     data_cadastro: new Date(),
+...     caracteristicas: {
+...         cor_dos_olhos: 'azuis',
+...         altura: 1.82,
+...         perfil: 'extrovertida'
+...     }
+... }) -> forma de inserir registro com diversos tipos de dados
+
+// Operadores exclusivos do Update
+
+db.pessoas.updateOne ({ nome: 'Matheus' },{$inc: {salario: 1000 } }) -> aumenta 1000 reais no salário
+
+db.pessoas.updateOne ({ nome: 'Joao' },{$inc: {salario: -3000 } }) -> decrementa o salario
+
+db.pessoas.createIndex({'nome':1  }) -> comando de criação de índice
+
+db.pessoas.getIndexes() -> comando para buscar os índices
+
+db.pessoas.explain().find({nome:'Joao'}) -> mostra detalhes sobre o resgistro
+
+db.pessoas.dropIndex('nome_1') -> comando para deletar um índice
+
+db.pessoas.drop() -> comando para deletar uma Collection
+
+db.dropDatabase() -> comando para apagar o banco
